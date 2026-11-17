@@ -31,5 +31,5 @@ export interface IzinKeluar {
   catatan?: string;
 }
 
-export type ActivePage = 'dashboard' | 'pengajuan' | 'approval' | 'kedatangan' | 'konfirmasi' | 'riwayat';
+export type ActivePage = 'dashboard' | 'pengajuan' | 'kelola-santri' | 'approval' | 'kedatangan' | 'konfirmasi' | 'riwayat';
 export type UserRole = 'ortu' | 'asrama';

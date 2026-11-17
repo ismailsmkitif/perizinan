@@ -6,6 +6,7 @@ import PanelApproval from './components/PanelApproval';
 import PanelKedatangan from './components/PanelKedatangan';
 import PanelKonfirmasi from './components/PanelKonfirmasi';
 import Riwayat from './components/Riwayat';
+import KelolaSantri from './components/KelolaSantri';
 
 const App: React.FC = () => {
   const [activePage, setActivePage] = useState<ActivePage>('dashboard');
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   const menuItems = [
     { id: 'dashboard' as ActivePage, label: 'Dashboard', icon: 'fas fa-tachometer-alt', roles: ['ortu', 'asrama'] as UserRole[] },
     { id: 'pengajuan' as ActivePage, label: 'Ajukan Izin', icon: 'fas fa-file-alt', roles: ['ortu'] as UserRole[] },
+    { id: 'kelola-santri' as ActivePage, label: 'Kelola Santri', icon: 'fas fa-users-cog', roles: ['asrama'] as UserRole[] },
     { id: 'approval' as ActivePage, label: 'Approval', icon: 'fas fa-clipboard-check', roles: ['asrama'] as UserRole[] },
     { id: 'kedatangan' as ActivePage, label: 'Catat Kembali', icon: 'fas fa-door-open', roles: ['asrama'] as UserRole[] },
     { id: 'konfirmasi' as ActivePage, label: 'Konfirmasi Ortu', icon: 'fas fa-check-double', roles: ['ortu'] as UserRole[] },
@@ -32,6 +34,7 @@ const App: React.FC = () => {
     switch (activePage) {
       case 'dashboard': return <Dashboard onDataChange={handleDataChange} />;
       case 'pengajuan': return <FormPengajuan onSuccess={handleDataChange} />;
+      case 'kelola-santri': return <KelolaSantri />;
       case 'approval': return <PanelApproval onDataChange={handleDataChange} />;
       case 'kedatangan': return <PanelKedatangan onDataChange={handleDataChange} />;
       case 'konfirmasi': return <PanelKonfirmasi onDataChange={handleDataChange} />;

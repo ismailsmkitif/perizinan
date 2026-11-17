@@ -48,3 +48,48 @@ export function updateIzinKeluar(id: string, updates: Partial<IzinKeluar>): void
 export function generateId(): string {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
+
+export function addSantri(santri: Santri): void {
+  const data = getSantri();
+  data.push(santri);
+  localStorage.setItem(SANTRI_KEY, JSON.stringify(data));
+}
+
+export function updateSantri(id: string, updates: Partial<Santri>): void {
+  const data = getSantri();
+  const index = data.findIndex(s => s.id === id);
+  if (index !== -1) {
+    data[index] = { ...data[index], ...updates };
+    localStorage.setItem(SANTRI_KEY, JSON.stringify(data));
+  }
+}
+
+export function deleteSantri(id: string): void {
+  const data = getSantri().filter(s => s.id !== id);
+  localStorage.setItem(SANTRI_KEY, JSON.stringify(data));
+}
+
+export function importSantri(santriList: Santri[]): { success: number; duplicate: number } {
+  const existing = getSantri();
+  let success = 0;
+  let duplicate = 0;
+
+  santriList.forEach(santri => {
+    const isDuplicate = existing.some(
+      s => s.nama.toLowerCase() === santri.nama.toLowerCase() && s.kelas === santri.kelas
+    );
+    if (isDuplicate) {
+      duplicate++;
+    } else {
+      existing.push({ ...santri, id: generateId() });
+      success++;
+    }
+  });
+
+  localStorage.setItem(SANTRI_KEY, JSON.stringify(existing));
+  return { success, duplicate };
+}
+
+export function resetSantri(): void {
+  localStorage.setItem(SANTRI_KEY, JSON.stringify(defaultSantri));
+}
